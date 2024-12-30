@@ -1,0 +1,13 @@
+Serial Query executed in 2.13 seconds
+Results:
+('Sara Mcdonald', 'Bullock LLC', 57.06947560217621, 10)
+('Sean Salazar', 'Morris-Rodriguez', 57.14040945864192, 10)
+('Michael Wilson', 'Austin and Sons', 72.90574152458436, 10)
+('Mark Liu', 'Bennett Group', 56.09651283502295, 10)
+('Eileen Ramos MD', 'Harris and Sons', 55.41318534569698, 10)
+('Amy Rowe', 'Jones Group', 55.3573863601158, 9)
+('Melanie Murphy', 'Madden, Sutton and Johnson', 46.26338912753137, 9)
+('Andrew Delacruz', 'White Ltd', 47.274363794791576, 9)
+('Gina Jones', 'Parrish-Woods', 58.661962598784584, 9)
+('Mitchell Haynes', 'Brown-Mcguire', 51.78000868911738, 9)
+

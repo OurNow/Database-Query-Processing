@@ -3,6 +3,7 @@ import time
 import os
 from serial_query import execute_serial_query
 from parallel_query import execute_parallel_query
+import matplotlib.pyplot as plt
 
 # Create the 'results' directory if it doesn't exist
 def create_results_directory(directory):
@@ -15,7 +16,7 @@ def create_results_directory(directory):
 # Save the results of the query execution (to both serial and parallel query files)
 def save_results(query_type, execution_time, results, file_path):
     create_results_directory("results")  # Ensure 'results' directory exists
-    
+
     if results:  # Check if results are not empty
         with open(file_path, 'w') as file:  # Open file in 'w' mode to overwrite it each time
             file.write(f"{query_type} executed in {execution_time:.2f} seconds\n")
@@ -36,6 +37,22 @@ def save_execution_times(serial_time, parallel_time, file_path):
         file.write(f"Parallel Query,{parallel_time:.2f}\n")
     print(f"Saved execution times to {file_path}")
 
+# Plot execution times as a line graph
+def plot_execution_times(serial_time, parallel_time):
+    query_types = ["Serial", "Parallel"]
+    execution_times = [serial_time, parallel_time]
+
+    plt.figure(figsize=(8, 5))
+    plt.plot(query_types, execution_times, marker='o', color='blue', label="Execution Time")
+    plt.ylabel("Execution Time (seconds)")
+    plt.xlabel("Query Type")
+    plt.title("Serial vs Parallel Query Execution Time")
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.legend()
+    plt.savefig("results/execution_times_plot.png")
+    print("Saved execution times plot to results/execution_times_plot.png")
+    plt.show()
+
 # Perform performance analysis and save results
 def analyze_performance(db_path):
     # Start serial query
@@ -53,15 +70,15 @@ def analyze_performance(db_path):
     except Exception as e:
         print(f"Error executing serial query: {e}")
         results_serial = []
-    
+
     # Save serial query results
     save_results("Serial Query", serial_time, results_serial, "results/serial_query_results.txt")
 
     # Start parallel query
     print("Starting parallel query...")
     query_template = """
-    SELECT u.name, r.name, 
-           AVG(o.total_amount) AS avg_order_amount, 
+    SELECT u.name, r.name,
+           AVG(o.total_amount) AS avg_order_amount,
            COUNT(o.order_id) AS total_orders
     FROM users u
     JOIN orders o ON u.user_id = o.user_id
@@ -91,6 +108,9 @@ def analyze_performance(db_path):
 
     # Save execution times to CSV
     save_execution_times(serial_time, parallel_time, "results/execution_times.csv")
+
+    # Plot execution times
+    plot_execution_times(serial_time, parallel_time)
 
     # Save performance analysis results
     with open("results/performance_analysis_results.txt", 'w') as file:

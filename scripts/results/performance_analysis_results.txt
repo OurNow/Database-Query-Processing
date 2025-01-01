@@ -1,4 +1,4 @@
 Performance Analysis Results:
 -----------------------------------
-Serial query executed in 2.13 seconds
-Parallel query executed in 2.12 seconds
+Serial query executed in 2.97 seconds
+Parallel query executed in 2.53 seconds
